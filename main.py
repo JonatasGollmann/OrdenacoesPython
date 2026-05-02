@@ -7,6 +7,7 @@ from metodos.mergeSort import merge_sort
 from metodos.quickSort import quick_sort
 from metodos.selectionSort import selection_sort
 from metodos.shellSort import shell_sort
+from metodos.radixSort import radix_sort
 
 def vetores():
     # Para testar: Lista de números em ordem aleatória.
