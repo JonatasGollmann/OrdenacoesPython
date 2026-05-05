@@ -41,6 +41,7 @@ def main():
 
 def printWithTimeMedia(nome, algoritmo, vetores):
     import time
+    
     total_tempo = 0
     total_comp = 0
     total_trocas = 0
@@ -50,9 +51,9 @@ def printWithTimeMedia(nome, algoritmo, vetores):
     for i, vetor in enumerate(vetores, start=1):
         copia = vetor.copy()
 
-        inicio = time.perf_counter()
+        inicio = time.process_time()
         _, comparacoes, trocas = algoritmo(copia)
-        fim = time.perf_counter()
+        fim = time.process_time()
 
         tempo = fim - inicio
 
