@@ -21,7 +21,6 @@ def main():
     conjuntos = matrizVetores()
 
     algoritmos = [
-        ("Bubble Sort", bubble_sort),
         ("Selection Sort", selection_sort),
         ("Insertion Sort", insertion_sort),
         ("Shell Sort", shell_sort),
@@ -35,28 +34,45 @@ def main():
         print(f"\n=== Vetores de tamanho {len(vetores[0])} ===")
 
         for nome, algoritmo in algoritmos:
-            print(f"\n>> {nome}")
-
-            for vetor in vetores:
-                copia = vetor.copy()
-                printWithTime(nome, algoritmo, copia)
+            printWithTimeMedia(nome, algoritmo, vetores)
 
         print("-" * 40)
 
-def printWithTime(nomeMetodo, method, vetor):
+
+def printWithTimeMedia(nome, algoritmo, vetores):
     import time
-    start_time = time.perf_counter()
-    sorted_vetor = method(vetor.copy())
-    end_time = time.perf_counter()
-    print(f"{nomeMetodo}: {end_time - start_time:.6f} seconds.")
+    total_tempo = 0
+    total_comp = 0
+    total_trocas = 0
 
-    # import timeit
-    # runs = 1000
-    # exec_time = timeit.timeit(lambda: method(vetor.copy()), number=runs) / runs
+    print(f"{nome} (n={len(vetores[0])})")
 
-    # sorted_vetor = method(vetor.copy())
-    # print(f"{nomeMetodo}: {exec_time:.6f} seconds (média de {runs} execuções).")
-    # return sorted_vetor
+    for i, vetor in enumerate(vetores, start=1):
+        copia = vetor.copy()
+
+        inicio = time.perf_counter()
+        _, comparacoes, trocas = algoritmo(copia)
+        fim = time.perf_counter()
+
+        tempo = fim - inicio
+
+        total_tempo += tempo
+        total_comp += comparacoes
+        total_trocas += trocas
+
+        print(f"  Vetor {i}: "
+              f"Tempo: {tempo:.6f}s | "
+              f"Comp: {comparacoes:>10} | "
+              f"Trocas: {trocas:>10}")
+
+    n = len(vetores)
+
+    print(f"  MÉDIA : "
+          f"Tempo: {(total_tempo/n):.6f}s | "
+          f"Comp: {int(total_comp/n):>10} | "
+          f"Trocas: {int(total_trocas/n):>10}")
+    
+    print("-" * 50)
 
 if __name__ == "__main__":
     main()

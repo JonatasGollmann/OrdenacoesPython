@@ -2,11 +2,19 @@
 # BIG-0 O(n^2) no pior caso e O(n^2) no melhor caso, pois ele sempre percorre toda a lista para encontrar o menor elemento.
 
 def selection_sort(arr):
+    comparacoes = 0
+    trocas = 0
+
     n = len(arr)
     for i in range(n):
         min_idx = i
-        for j in range(i+1, n):
+        for j in range(i + 1, n):
+            comparacoes += 1
             if arr[j] < arr[min_idx]:
                 min_idx = j
-        arr[i], arr[min_idx] = arr[min_idx], arr[i]
-    return arr
+
+        if min_idx != i:
+            arr[i], arr[min_idx] = arr[min_idx], arr[i]
+            trocas += 1
+
+    return arr, comparacoes, trocas
